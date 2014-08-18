@@ -1,0 +1,445 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ObjectEditor="clr-namespace:ObjectEditor"
+                    xmlns:EnumEditor="clr-namespace:EnumEditor;assembly=EnumEditor"
+                    xmlns:Convertors="clr-namespace:ObjectEditor.Convertors"
+                    xmlns:Validation="clr-namespace:ObjectEditor.Validation">
+
+    <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid Background="Transparent" SnapsToDevicePixels="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="16"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="16" Width="16" Margin="0">
+                                <Ellipse Margin="0" x:Name="circle" HorizontalAlignment="Center" StrokeThickness="0.5" Stroke="DarkGray" VerticalAlignment="Center" Height="16" Width="16"/>
+                                <Path x:Name="arrow" Data="M 0,-1 L 0,1 M -1,0 L 1,0" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="1" VerticalAlignment="Center" Height="10" Stretch="Fill" Width="10"/>
+                            </Grid>
+                            <ContentPresenter x:Name="ExpanderContent" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,5,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M -1,0 L 1,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#222"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
+                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                            <Setter Property="Visibility" TargetName="ExpanderContent" Value="Collapsed"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid Background="Transparent" SnapsToDevicePixels="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="19"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.LayoutTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <TransformCollection>
+                                                <RotateTransform Angle="180"/>
+                                            </TransformCollection>
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </Grid.LayoutTransform>
+                                <Ellipse x:Name="circle" HorizontalAlignment="Center" Height="19" Stroke="DarkGray" VerticalAlignment="Center" Width="19"/>
+                                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#222"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
+                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid Background="Transparent" SnapsToDevicePixels="False">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="19"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.LayoutTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <TransformCollection>
+                                                <RotateTransform Angle="90"/>
+                                            </TransformCollection>
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </Grid.LayoutTransform>
+                                <Ellipse x:Name="circle" HorizontalAlignment="Center" Height="19" Stroke="DarkGray" VerticalAlignment="Center" Width="19"/>
+                                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#222"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
+                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExpanderHeaderFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle Margin="0" SnapsToDevicePixels="true" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid Background="Transparent" SnapsToDevicePixels="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="16"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="16" Width="16" Margin="0">
+                                <Ellipse Margin="0" x:Name="circle" HorizontalAlignment="Center" StrokeThickness="0.5" Stroke="DarkGray" VerticalAlignment="Center" Height="16" Width="16"/>
+                                <Path x:Name="arrow" Data="M 0,-1 L 0,1 M -1,0 L 1,0" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="1" VerticalAlignment="Center" Height="10" Stretch="Fill" Width="10"/>
+                            </Grid>
+                            <ContentPresenter x:Name="ExpanderContent" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,5,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M -1,0 L 1,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#222"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
+                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                            <Setter Property="Visibility" TargetName="ExpanderContent" Value="Collapsed"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Expander}" x:Key="ExpanderStyle">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="true">
+                        <DockPanel>
+                            <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="true">
+                            <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Right">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}"/>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Up">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Left">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="LabelStyle">
+        <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+        <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+        <Setter Property="TextBlock.Margin" Value="{Binding DataContext.DescriptionMargin, ElementName=ObjectControl}"/>
+    </Style>
+
+    <Style x:Key="ElementStyle">
+        <Setter Property="Control.VerticalAlignment" Value="Center"/>
+        <Setter Property="Control.Margin" Value="{Binding DataContext.ChildMargin, ElementName=ObjectControl}"/>
+    </Style>
+
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{ObjectEditor:StaticApplicationResource {x:Type TextBox}}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="{Binding DataContext.ChildMargin, ElementName=ObjectControl}"/>
+    </Style>
+
+    <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{ObjectEditor:StaticApplicationResource {x:Type CheckBox}}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="{Binding DataContext.ChildMargin, ElementName=ObjectControl}"/>
+    </Style>
+
+    <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{ObjectEditor:StaticApplicationResource {x:Type TextBlock}}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="{Binding DataContext.ChildMargin, ElementName=ObjectControl}"/>
+    </Style>
+
+
+
+    <ControlTemplate x:Key="BaseTemplate" TargetType="{x:Type ContentControl}">
+        <StackPanel Orientation="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}">
+            <TextBlock Text="{Binding}" Style="{StaticResource LabelStyle}"
+                       Visibility="{Binding DataContext.IsDescriptionVisible, ElementName=ObjectControl, Converter={x:Static Convertors:False.ToCollapsed}}"
+                       x:Name="DescriptionElement"/>
+            <ContentPresenter/>
+        </StackPanel>
+
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Info, Converter={x:Static Convertors:NotNull.ToTrue}}" Value="False">
+                <Setter TargetName="DescriptionElement" Property="Visibility" Value="Collapsed"></Setter>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Convertors:SingleToStringConverter x:Key="SingleToStringConverter"/>
+    <Convertors:IntToStringConverter x:Key="IntToStringConverter"/>
+
+    <DataTemplate x:Key="BooleanT">
+        <CheckBox IsChecked="{Binding Value}" Style="{StaticResource CheckBoxStyle}">
+            <TextBlock Text="{Binding}"/>
+        </CheckBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BooleanReadOnlyT">
+        <CheckBox IsChecked="{Binding Value, Mode=OneWay}" Style="{StaticResource CheckBoxStyle}" IsEnabled="False">
+            <TextBlock Text="{Binding}"/>
+        </CheckBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EnumT">
+        <EnumEditor:EnumEditor Value="{Binding Value}"
+                               TranslatePrefix="{Binding DataContext.TranslatePrefix, ElementName=ObjectControl}"
+                               Style="{StaticResource ElementStyle}"
+                               Templates="{Binding DataContext.Templates, ElementName=ObjectControl}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EnumReadOnlyT">
+        <EnumEditor:EnumEditor Value="{Binding Value, Mode=OneWay}"
+                               IsReadOnly="True"
+                               TranslatePrefix="{Binding DataContext.TranslatePrefix, ElementName=ObjectControl}"
+                               Style="{StaticResource ElementStyle}"
+                               Templates="{Binding DataContext.Templates, ElementName=ObjectControl}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StringT">
+        <TextBox Text="{ObjectEditor:ValidatorBinding Value, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StringReadOnlyT">
+        <TextBlock Text="{Binding Value}" Style="{StaticResource TextBlockStyle}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SingleT">
+        <TextBox Style="{StaticResource TextBoxStyle}">
+            <TextBox.Text>
+                <ObjectEditor:ValidatorBinding Path="Value" Converter="{StaticResource SingleToStringConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <ObjectEditor:ValidatorBinding.ValidatorRule>
+                        <Validation:DoubleRule/>
+                    </ObjectEditor:ValidatorBinding.ValidatorRule>
+                </ObjectEditor:ValidatorBinding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SingleReadOnlyT">
+        <TextBlock Text="{Binding Value}" Style="{StaticResource TextBlockStyle}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DoubleT">
+        <TextBox Style="{StaticResource TextBoxStyle}">
+            <TextBox.Text>
+                <ObjectEditor:ValidatorBinding Path="Value" UpdateSourceTrigger="PropertyChanged">
+                    <ObjectEditor:ValidatorBinding.ValidatorRule>
+                        <Validation:DoubleRule/>
+                    </ObjectEditor:ValidatorBinding.ValidatorRule>
+                </ObjectEditor:ValidatorBinding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DoubleReadOnlyT">
+        <TextBlock Text="{Binding Value}" Style="{StaticResource TextBlockStyle}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Int32T">
+        <TextBox Style="{StaticResource TextBoxStyle}">
+            <TextBox.Text>
+                <ObjectEditor:ValidatorBinding Path="Value" Converter="{StaticResource IntToStringConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <ObjectEditor:ValidatorBinding.ValidatorRule>
+                        <Validation:IntRule/>
+                    </ObjectEditor:ValidatorBinding.ValidatorRule>
+                </ObjectEditor:ValidatorBinding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Int32ReadOnlyT">
+        <TextBlock Text="{Binding Value}" Style="{StaticResource TextBlockStyle}"/>
+    </DataTemplate>
+
+
+    <DataTemplate x:Key="DefaultTemplate">
+        <!--<ContentControl Content="{Binding Value}"/>-->
+
+        <!--<TextBlock Visibility="{Binding DataContext.IsDescriptionVisible, ElementName=ObjectControl, Converter={x:Static Convertors:False.ToCollapsed}}"/>-->
+
+        <Expander DataContext="{Binding}" Header="{Binding Converter={x:Static Convertors:FromObject.ToString}}"
+                  FontWeight="Bold" Margin="{Binding DataContext.DescriptionMargin, ElementName=ObjectControl}" x:Name="ContentExpander"
+                  Style="{StaticResource ExpanderStyle}">
+            <Expander.ContentTemplate>
+                <DataTemplate>
+                    <ObjectEditor:ObjectEditor Value="{Binding ElementName=ContentExpander, Path=DataContext}"
+                                                            TranslatePrefix="{Binding DataContext.TranslatePrefix, ElementName=ObjectControl}"
+                                                            ShowAttributes="{Binding DataContext.ShowAttributes, ElementName=ObjectControl}"
+                                                            Orientation="{Binding DataContext.Orientation, ElementName=ObjectControl}"
+                                                            ChildOrientation="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}"
+                                                            IsDescriptionVisible="{Binding DataContext.IsDescriptionVisible, ElementName=ObjectControl}"
+                                                            DescriptionMargin="{Binding DataContext.DescriptionMargin, ElementName=ObjectControl}"
+                                                            ChildMargin="{Binding DataContext.ChildMargin, ElementName=ObjectControl}"
+                                                            Templates="{Binding DataContext.Templates, ElementName=ObjectControl}"
+                                                            Style="{StaticResource ElementStyle}" FontWeight="Regular" IsReadOnly="False">
+                    </ObjectEditor:ObjectEditor>
+                </DataTemplate>
+            </Expander.ContentTemplate>
+        </Expander>
+
+        <!--<StackPanel Orientation="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}">-->
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}" Value="Horizontal">
+                <Setter TargetName="ContentExpander" Property="ExpandDirection" Value="Right"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Info, Converter={x:Static Convertors:NotNull.ToTrue}}" Value="False">
+                <Setter TargetName="ContentExpander" Property="FontWeight" Value="Regular"/>
+                <Setter TargetName="ContentExpander" Property="Margin" Value="{Binding DataContext.ChildMargin, ElementName=ObjectControl}"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Boolean">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource BooleanT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BooleanReadOnly">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource BooleanReadOnlyT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Enum">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource EnumT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EnumReadOnly">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource EnumReadOnlyT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="String">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource StringT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StringReadOnly">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource StringReadOnlyT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Single">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource SingleT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SingleReadOnly">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource SingleReadOnlyT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Double">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource DoubleT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DoubleReadOnly">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource DoubleReadOnlyT}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Int32">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource Int32T}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Int32ReadOnly">
+        <ContentControl Content="{Binding}" Template="{StaticResource BaseTemplate}" ContentTemplate="{StaticResource Int32ReadOnlyT}"/>
+    </DataTemplate>
+</ResourceDictionary>

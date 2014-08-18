@@ -1,0 +1,72 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Local="clr-namespace:ObjectEditor"
+    xmlns:Convertors1="clr-namespace:ObjectEditor.Convertors">
+
+    <Style x:Key="LabelStyle">
+        <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+        <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+        <Setter Property="TextBlock.Margin" Value="{Binding DataContext.DescriptionMargin, ElementName=ObjectControl}"/>
+    </Style>
+
+    <DataTemplate DataType="{x:Type Local:AbstractValue}">
+        <ContentControl Content="{Binding}" ContentTemplateSelector="{Binding DataContext.TemplateSelector, ElementName=ObjectControl}"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Local:CollectionValue}">
+        <StackPanel Orientation="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}">
+            <TextBlock Text="{Binding}" Style="{StaticResource LabelStyle}" Visibility="{Binding DataContext.IsDescriptionVisible, ElementName=ObjectControl, Converter={x:Static Convertors1:False.ToCollapsed}}"/>
+
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </DataTemplate>
+
+    <Style TargetType="{x:Type Local:ObjectEditor}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Local:ObjectEditor}">
+                    <ControlTemplate.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.MergedDictionaries>
+                                <ResourceDictionary Source="/ObjectEditor;component/Themes/ObjectEditorTemplates.xaml"/>
+                            </ResourceDictionary.MergedDictionaries>
+                        </ResourceDictionary>
+                    </ControlTemplate.Resources>
+
+                    <ItemsControl DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" ItemsSource="{Binding Items}" x:Name="ObjectControl">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="{Binding Orientation}" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

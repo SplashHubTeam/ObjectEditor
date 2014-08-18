@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguagesResource culture="ru-RU">
+  <TestPresenter>
+    <Text>Текст</Text>
+    <Int>Целое</Int>
+    <IP>IP</IP>
+  </TestPresenter>
+</LanguagesResource>
