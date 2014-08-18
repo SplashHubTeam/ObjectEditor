@@ -41,13 +41,6 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EnumEditor">
-      <HintPath>..\EnumEditor\bin\Debug\EnumEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="LocalizationLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=84785b57fecae58a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\LocalizationLibrary\bin\Debug\LocalizationLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -97,6 +90,16 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnumEditor\EnumEditor.csproj">
+      <Project>{E2631D15-0146-4EBE-B5EB-A2692FC3289E}</Project>
+      <Name>EnumEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocalizationLibrary\LocalizationLibrary.csproj">
+      <Project>{BA260E07-3E04-4EE2-8E62-A0B66480DCD6}</Project>
+      <Name>LocalizationLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
