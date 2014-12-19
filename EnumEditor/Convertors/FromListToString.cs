@@ -5,46 +5,45 @@ using System.Windows.Data;
 
 namespace EnumEditor.Convertors
 {
-	public static class List
-	{
-		public static readonly IValueConverter ToString = new ListToStringConverter(", ");
-	}
+    public static class List
+    {
+        public new static readonly IValueConverter ToString = new ListToStringConverter(", ");
+    }
 
-	public class ListToStringConverter : IValueConverter
-	{
-		public string Separator { get; set; }
+    public class ListToStringConverter : IValueConverter
+    {
+        public string Separator { get; set; }
 
-		public ListToStringConverter()
-		{ }
+        public ListToStringConverter() { }
 
-		public ListToStringConverter(string separator)
-		{
-			Separator = separator;
-		}
+        public ListToStringConverter(string separator)
+        {
+            Separator = separator;
+        }
 
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			if (value == null) return null;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return null;
 
-			var list = value as IList;
-			var res = "";
+            var list = value as IList;
+            if (list == null) return null;
 
-			foreach (var item in list)
-			{
-				if (res.Length > 0) res += Separator;
-				res += item;
-			}
+            var res = "";
 
-			return res;
-		}
+            foreach (var item in list)
+            {
+                if (res.Length > 0) res += Separator;
+                res += item;
+            }
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			if (value == null) return null;
+            return res;
+        }
 
-			var text = value.ToString();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return null;
 
-			return null;
-		}
-	}
+            return null;
+        }
+    }
 }

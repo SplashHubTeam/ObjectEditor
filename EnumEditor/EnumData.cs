@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using LocalizationLibrary;
 
 namespace EnumEditor
@@ -8,10 +7,7 @@ namespace EnumEditor
     {
         public string TranslatePrefix { get; set; }
 
-        public EnumData()
-        {
-
-        }
+        public EnumData() { }
 
         public EnumData(string enumType)
         {

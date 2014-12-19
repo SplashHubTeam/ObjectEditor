@@ -4,10 +4,10 @@ using System.Windows.Data;
 
 namespace ObjectEditor.Convertors
 {
-	public static class Int
-	{
-		public static readonly IValueConverter ToString = new IntToStringConverter();
-	}
+    public static class Int
+    {
+        public new static readonly IValueConverter ToString = new IntToStringConverter();
+    }
 
     public class IntToStringConverter : IValueConverter
     {

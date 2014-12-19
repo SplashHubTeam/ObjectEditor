@@ -13,26 +13,26 @@ namespace EnumEditor
             {
                 _value = value;
 
-				var newValue = Enum.ToObject(Object.GetType(), value.Value);
-				if (!Object.Equals(newValue))
+                var newValue = Enum.ToObject(Object.GetType(), value.Value);
+                if (!Object.Equals(newValue))
                 {
-					Object = newValue;
+                    Object = newValue;
 
-					if (ObjectChanged != null) ObjectChanged(Object);
+                    if (ObjectChanged != null) ObjectChanged(Object);
                 }
             }
         }
 
         public EnumValue(object Object)
         {
-			this.Object = Object;
+            this.Object = Object;
 
             UpdateList();
         }
 
         private void UpdateList()
         {
-			var enumType = Object.GetType();
+            var enumType = Object.GetType();
 
             if (enumType.BaseType != typeof(Enum))
             {
@@ -51,9 +51,9 @@ namespace EnumEditor
                 var name = names[index];
                 var curData = new EnumData(name) { Value = values.GetValue(index), TranslatePrefix = TranslatePrefix };
 
-				if (Object.Equals(curData.Value))
+                if (Object.Equals(curData.Value))
                 {
-					Value = curData;
+                    Value = curData;
                 }
 
                 list.Add(curData);

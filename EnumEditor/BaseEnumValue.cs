@@ -6,21 +6,10 @@ namespace EnumEditor
 {
     public class BaseEnumValue : INotifyPropertyChanged
     {
-	    protected object Object;
+        protected object Object;
 
         public Action<object> ObjectChanged;
-/*
-        private object _value;
-        public object Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                InvokePropertyChanged("Value");
-            }
-        }
-*/
+
         private string _translatePrefix;
         public string TranslatePrefix
         {
@@ -36,7 +25,7 @@ namespace EnumEditor
             }
         }
 
-	    private List<EnumData> _items;
+        private List<EnumData> _items;
         public List<EnumData> Items
         {
             get { return _items; }

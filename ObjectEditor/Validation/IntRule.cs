@@ -15,8 +15,8 @@ namespace ObjectEditor.Validation
 
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            int intValue = 0;
-            
+            var intValue = 0;
+
             try
             {
                 if (!string.IsNullOrWhiteSpace((string)value))
@@ -32,10 +32,8 @@ namespace ObjectEditor.Validation
             {
                 return new ValidationResult(false, string.Format("value is not in range [{0}..{1}]", Min, Max));
             }
-            else
-            {
-                return new ValidationResult(true, null);
-            }
+
+            return new ValidationResult(true, null);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ObjectEditorTest.View
 {
-	public partial class App : Application
-	{
-	}
+    public partial class App : Application
+    {
+    }
 }

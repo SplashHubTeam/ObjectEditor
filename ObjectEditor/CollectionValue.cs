@@ -9,52 +9,52 @@ namespace ObjectEditor
     /// </summary>
     public class CollectionValue : BaseValue
     {
-		protected IList Data { get; set; }
-		public ObservableCollection<CollectionItem> Items { get; set; }
+        protected IList Data { get; set; }
+        public ObservableCollection<CollectionItem> Items { get; set; }
 
-		public override object Value
-		{
-			get
-			{
-				return Property.GetValue(Object, null);
-			}
-			set
-			{
-				Property.SetValue(Object, value, null);
-				UpdateValue(Object);
-			}
-		}
+        public override object Value
+        {
+            get
+            {
+                return Property.GetValue(Object, null);
+            }
+            set
+            {
+                Property.SetValue(Object, value, null);
+                UpdateValue(Object);
+            }
+        }
 
         public CollectionValue(object Object, PropertyInfo property) : base(Object, property)
         {
-			Items = new ObservableCollection<CollectionItem>();
+            Items = new ObservableCollection<CollectionItem>();
 
-			UpdateValue(Object);
+            UpdateValue(Object);
         }
 
-		public override void UpdateValue(object Object)
-		{
-			this.Object = Object;
-			Data = Value as IList;
+        public override void UpdateValue(object Object)
+        {
+            this.Object = Object;
+            Data = Value as IList;
 
-			if (Items != null) Items.Clear();
+            if (Items != null) Items.Clear();
 
-			if (Data == null)
-			{
-				InvokePropertyChanged("Value");
-				return;
-			}
+            if (Data == null)
+            {
+                InvokePropertyChanged("Value");
+                return;
+            }
 
-			if (Object != null && Data != null)
-			{
-				var index = 0;
-				foreach (var item in Data)
-				{
-					Items.Add(new CollectionItem(item, Data, index++));
-				}
-			}
+            if (Object != null && Data != null && Items != null)
+            {
+                var index = 0;
+                foreach (var item in Data)
+                {
+                    Items.Add(new CollectionItem(item, Data, index++));
+                }
+            }
 
-			InvokePropertyChanged("Value");
-		}
+            InvokePropertyChanged("Value");
+        }
     }
 }

@@ -358,9 +358,6 @@
 
 
     <DataTemplate x:Key="DefaultTemplate">
-        <!--<ContentControl Content="{Binding Value}"/>-->
-
-        <!--<TextBlock Visibility="{Binding DataContext.IsDescriptionVisible, ElementName=ObjectControl, Converter={x:Static Convertors:False.ToCollapsed}}"/>-->
 
         <Expander DataContext="{Binding}" Header="{Binding Converter={x:Static Convertors:FromObject.ToString}}"
                   FontWeight="Bold" Margin="{Binding DataContext.DescriptionMargin, ElementName=ObjectControl}" x:Name="ContentExpander"
@@ -381,8 +378,6 @@
                 </DataTemplate>
             </Expander.ContentTemplate>
         </Expander>
-
-        <!--<StackPanel Orientation="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}">-->
 
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding DataContext.ChildOrientation, ElementName=ObjectControl}" Value="Horizontal">

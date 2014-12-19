@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Local="clr-namespace:EnumEditor"
     xmlns:Convertors="clr-namespace:EnumEditor.Convertors">
-    
+
     <Style TargetType="{x:Type Local:EnumEditor}">
         <Setter Property="Template">
             <Setter.Value>
@@ -12,7 +12,7 @@
                         <DataTemplate x:Key="EnumValue">
                             <ComboBox SelectedItem="{Binding Value, Mode=TwoWay}" ItemsSource="{Binding Items}"/>
                         </DataTemplate>
-                        
+
                         <DataTemplate x:Key="EnumValueReadOnly">
                             <TextBlock Text="{Binding Value}"/>
                         </DataTemplate>
@@ -65,14 +65,9 @@
                             </ItemsControl>
                         </DataTemplate>
                     </ControlTemplate.Resources>
-                    
+
                     <ContentControl Content="{Binding EditValue, RelativeSource={RelativeSource TemplatedParent}}" ContentTemplateSelector="{Binding TemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" x:Name="EnumControl"/>
 
-                    <!--<ControlTemplate.Triggers>
-                        <Trigger Property="Local:EnumEditor.IsReadOnly" Value="True">
-                            <Setter TargetName="EnumControl" Property="ContentTemplateSelector" Value="{Binding ReadOnlySelector, RelativeSource={RelativeSource TemplatedParent}}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

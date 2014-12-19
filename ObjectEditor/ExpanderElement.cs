@@ -2,7 +2,7 @@
 
 namespace ObjectEditor
 {
-	public class ExpanderElement : Expander
-	{
-	}
+    public class ExpanderElement : Expander
+    {
+    }
 }
