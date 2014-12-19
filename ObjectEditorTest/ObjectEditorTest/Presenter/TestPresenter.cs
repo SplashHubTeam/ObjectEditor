@@ -134,10 +134,10 @@ namespace ObjectEditorTest.Presenter
             FlagsList = new List<MyFlags> { MyFlags.Flag1, MyFlags.Flag2 };
             IntList = new List<int> { 10, 20 };
             ClassList = new List<ListClass>
-			{
-				new ListClass { Text = "Class 1", EditFlag = MyFlags.Flag1 },
-				new ListClass { Text = "Class 2", EditFlag = MyFlags.Flag2 }
-			};
+            {
+                new ListClass { Text = "Class 1", EditFlag = MyFlags.Flag1 },
+                new ListClass { Text = "Class 2", EditFlag = MyFlags.Flag2 }
+            };
         }
     }
 }
