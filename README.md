@@ -254,6 +254,7 @@ There are templates that are defined by default:
 * Single (SingleReadOnly)
 * Double (DoubleReadOnly)
 * Int32 (Int32ReadOnly)
+
 Enum type has special templates that can be redefined:
 
 * EnumValue (EnumValueReadOnly)
@@ -408,7 +409,7 @@ Picture 12
 There are visual classes that you can also redefine:
 * AbstractValue – base class to edit any property of object. 
 * CollectionValue – class to edit a list property.
-* ObjectEditor – the main class to edit object.?
+* ObjectEditor – the main class to edit object.
 
 
 
