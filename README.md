@@ -163,10 +163,10 @@ Picture 5.
 
 The short list of Object Editor properties is as follows:
 
-object Value – edited object.
-ObservableCollection<BaseValue> Items – list of object properties.
-List<string> ShowAttributes – list of edited attributes. It contains ShowInView by default.
-bool IsReadOnly – read only flag (for read only templates).
+* object Value – edited object.
+* ObservableCollection<BaseValue> Items – list of object properties.
+* List<string> ShowAttributes – list of edited attributes. It contains ShowInView by default.
+* bool IsReadOnly – read only flag (for read only templates).
 
 
 
